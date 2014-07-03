@@ -4,6 +4,8 @@
 \usepackage[T1]{fontenc}
 
 \usepackage{tikz}
+\usetikzlibrary{fit,matrix,positioning}
+
 \usepackage{microtype}
 
 \usetheme{Median}
@@ -450,7 +452,7 @@
   \frametitle{Cutting heads off}
   \begin{figure}
     \centering
-        \begin{tikzpicture}[
+    \begin{tikzpicture}[
       body/.style={fill=black},
       head/.style={fill=white}]
       \draw[body] (0,0) node(body1){} circle (0.2);
@@ -479,10 +481,370 @@
       \visible<2>{\draw[thick,color=red] (body1) -- (head2);}
 
       \pause
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{and growing heads back}
+
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[
+      body/.style={fill=black},
+      head/.style={fill=white}]
+      \draw[body] (0,0) node(body1){} circle (0.2);
+
+      \visible<-2>{\draw[body] (-0.75, 1) node(body2){} circle (0.2);}
+      \draw[head] (0.75, 1) node(head2){} circle (0.2);
+
+      \visible<-2>{\draw[body] (-1.5, 2) node(body3){} circle (0.2);}
+      \draw[head] (0, 2) node(head3){} circle (0.2);
+
+      \draw[head] (-2.3, 3) node(head41){} circle (0.2);
+      \draw[head] (-1.5, 3) node(head42){} circle (0.2);
+      \visible<-3>{\draw[head] (-0.7, 3) node(head43){} circle (0.2);}
+
+      \draw[thick] (body1) -- (body2);
+      \draw[thick] (body1) -- (head2);
+
+      \draw[thick] (body2) -- (body3);
+      \draw[thick] (body2) -- (head3);
+
+      \draw[thick] (body3) -- (head41);
+      \draw[thick] (body3) -- (head42);
+      \visible<1>{\draw[thick] (body3) -- (head43);}
+
+      \pause
+      \visible<-3>{\draw[thick,color=red] (body3) -- (head43);}
+
+      \pause
+      \draw[fill=red] (body3) circle (0.2);
+      \draw[fill=blue] (body2) circle (0.2);
+
+      \pause
+      \pause
+      \node[draw,thick,dotted,color=green,fit=(body3) (head41) (head42)] {};
+
+      \pause
+      \draw[head] (-3.3, 3) node(head421){} circle (0.2);
+      \draw[head] (-4.1, 3) node(head411){} circle (0.2);
+      \draw[body] (-3.7, 2) node(body31){} circle (0.2);
+
+      \draw[head] (-5.1, 3) node(head422){} circle (0.2);
+      \draw[head] (-5.9, 3) node(head412){} circle (0.2);
+      \draw[body] (-5.5, 2) node(body32){} circle (0.2);
+
+      \draw[thick,color=green] (body2) -- (body31);
+      \draw[thick,color=green] (body2) -- (body32);
+
+      \draw[thick,color=green] (body31) -- (head411);
+      \draw[thick,color=green] (body31) -- (head421);
+
+      \draw[thick,color=green] (body32) -- (head412);
+      \draw[thick,color=green] (body32) -- (head422);
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Can we win?}
+  \Huge Can we cut off all the heads? \\
+  \pause Yes, in fact any strategy will do! \\
+  \pause It might just take a very long time \ldots
+\end{frame}
+
+\begin{frame}
+  \frametitle{How do we prove it?}
+
+  \Huge The Hydra is ``simpler'' every time \\
+  \pause For some adequate definition of simple \\
+  \pause Let's measure it
+\end{frame}
+
+\begin{frame}
+  \frametitle{To each Hydra its ordinal}
+
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[
+      body/.style={fill=black},
+      head/.style={fill=white}]
+
+      \draw[body] (0,0) node(body1){} circle (0.2);
+
+      \draw[body] (-0.75, 1) node(body2){} circle (0.2);
+      \draw[head] (0.75, 1) node(head2){} circle (0.2);
+
+      \draw[body] (-1.5, 2) node(body3){} circle (0.2);
+      \draw[head] (0, 2) node(head3){} circle (0.2);
+
+      \draw[head] (-2.3, 3) node(head41){} circle (0.2);
+      \draw[head] (-1.5, 3) node(head42){} circle (0.2);
+      \draw[head] (-0.7, 3) node(head43){} circle (0.2);
+
+      \draw[thick] (body1) -- (body2);
+      \draw[thick] (body1) -- (head2);
+
+      \draw[thick] (body2) -- (body3);
+      \draw[thick] (body2) -- (head3);
+
+      \draw[thick] (body3) -- (head41);
+      \draw[thick] (body3) -- (head42);
+      \draw[thick] (body3) -- (head43);
+
+      \pause
+      \node[fit=(head41),draw,label=above:0]{};
+      \node[fit=(head42),draw,label=above:0]{};
+      \node[fit=(head43),draw,label=above:0]{};
+
+      \pause
+      \visible<3>{\node[fit=(body3),draw,label=left:$\omega^0 + \omega^0 + \omega^0$]{};}
+
+      \pause
+      \visible<4>{\node[fit=(body3),draw,label=left:$1 + 1 + 1$]{};}
+
+      \pause
+      \node[fit=(body3),draw,label=left:$3$]{};
+
+      \pause
+      \node[fit=(head3),draw,label=right:$0$]{};
+
+      \pause
+      \visible<7>{\node[fit=(body2),draw,label=left:$\omega^3 + \omega^0$]{};}
+
+      \pause
+      \node[fit=(body2),draw,label=left:$\omega^3 + 1$]{};
+
+      \pause
+      \node[fit=(head2),draw,label=right:$0$]{};
+
+      \pause
+      \node[fit=(body1),draw,label=below:$\omega^{\omega^3 + 1} + 1$]{};
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cutting heads off -- effect on the ordinal}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[
+      body/.style={fill=black},
+      head/.style={fill=white}]
+      \draw[body] (0,0) node(body1){} circle (0.2);
+
+      \draw[body] (-0.75, 1) node(body2){} circle (0.2);
+      \visible<-2>{\draw[head] (0.75, 1) node(head2){} circle (0.2);}
+
+      \draw[body] (-1.5, 2) node(body3){} circle (0.2);
+      \draw[head] (0, 2) node(head3){} circle (0.2);
+
+      \draw[head] (-2.3, 3) node(head41){} circle (0.2);
+      \draw[head] (-1.5, 3) node(head42){} circle (0.2);
+      \draw[head] (-0.7, 3) node(head43){} circle (0.2);
+
+      \draw[thick] (body1) -- (body2);
+      \visible<1>{\draw[thick] (body1) -- (head2);}
+
+      \draw[thick] (body2) -- (body3);
+      \draw[thick] (body2) -- (head3);
+
+      \draw[thick] (body3) -- (head41);
+      \draw[thick] (body3) -- (head42);
+      \draw[thick] (body3) -- (head43);
+
+      \node[fit=(body3),draw,label=left:$3$]{};
+      \node[fit=(head3),draw,label=right:$0$]{};
+      \node[fit=(body2),draw,label=left:$\omega^3 + 1$]{};
+      \visible<1-2>{\node[fit=(head2),draw,label=right:$0$]{};}
+      \visible<1>{\node[fit=(body1),draw,label=below:$\omega^{\omega^3 + 1} + 1$]{};}
+
+      \pause
+      \visible<2>{\draw[thick,color=red] (body1) -- (head2);}
+      \visible<2>{\node[fit=(body1),draw,label=below:$\omega^{\omega^3 + 1} + \textcolor{red}{1}$]{};}
+
+      \pause
+      \node[fit=(body1),draw,label=below:$\omega^{\omega^3 + 1}$]{};
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Growing heads back -- effect on the ordinal}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[
+      body/.style={fill=black},
+      head/.style={fill=white}]
+      \draw[body] (0,0) node(body1){} circle (0.2);
+
+      \visible<-2>{\draw[body] (-0.75, 1) node(body2){} circle (0.2);}
+      \draw[head] (0.75, 1) node(head2){} circle (0.2);
+
+      \visible<-2>{\draw[body] (-1.5, 2) node(body3){} circle (0.2);}
+      \draw[head] (0, 2) node(head3){} circle (0.2);
+
+      \draw[head] (-2.3, 3) node(head41){} circle (0.2);
+      \draw[head] (-1.5, 3) node(head42){} circle (0.2);
+      \visible<-3>{\draw[head] (-0.7, 3) node(head43){} circle (0.2);}
+
+      \draw[thick] (body1) -- (body2);
+      \draw[thick] (body1) -- (head2);
+
+      \draw[thick] (body2) -- (body3);
+      \draw[thick] (body2) -- (head3);
+
+      \draw[thick] (body3) -- (head41);
+      \draw[thick] (body3) -- (head42);
+      \visible<1>{\draw[thick] (body3) -- (head43);}
+
+      \node[fit=(head41),draw,label=above:0]{};
+      \node[fit=(head42),draw,label=above:0]{};
+      \visible<-3>{\node[fit=(head43),draw,label=above:0]{};}
+
+      \visible<1>{\node[fit=(body3),draw,label=left:$3$]{};}
+      \node[fit=(head3),draw,label=right:$0$]{};
+      \visible<1>{\node[fit=(body2),draw,label=left:$\omega^3 + 1$]{};}
+      \node[fit=(head2),draw,label=right:$0$]{};
+      \visible<1>{\node[fit=(body1),draw,label=below:$\omega^{\omega^3 + 1} + 1$]{};}
+
+      \pause
+      \visible<-3>{\draw[thick,color=red] (body3) -- (head43);}
+      \visible<-3>{\node[fit=(body3),draw,label=left:$\textcolor{red}{3}$]{};}
+      \visible<-3>{\node[fit=(body2),draw,label=left:$\omega^{\textcolor{red}{3}} + 1$]{};}
+      \visible<-3>{\node[fit=(body1),draw,label=below:$\omega^{\omega^{\textcolor{red}{3}} + 1} + 1$]{};}
+
+      \pause
+      \draw[fill=red] (body3) circle (0.2);
+      \draw[fill=blue] (body2) circle (0.2);
+
+      \pause
+      \node[fit=(body3),draw,label=left:$\textcolor{red}{2}$]{};
+      \visible<-7>{\node[fit=(body2),draw,label=left:$\omega^{\textcolor{red}{2}} + 1$]{};}
+      \visible<-7>{\node[fit=(body1),draw,label=below:$\omega^{\omega^{\textcolor{red}{2}} + 1} + 1$]{};}
+
+      \pause % frame 5
+      \node[draw,thick,dotted,color=green,fit=(body3) (head41) (head42)] {};
+
+      \pause % frame 6
+      \draw[head] (-3.3, 3) node(head421){} circle (0.2);
+      \draw[head] (-4.1, 3) node(head411){} circle (0.2);
+      \draw[body] (-3.7, 2) node(body31){} circle (0.2);
+
+      \draw[head] (-5.1, 3) node(head422){} circle (0.2);
+      \draw[head] (-5.9, 3) node(head412){} circle (0.2);
+      \draw[body] (-5.5, 2) node(body32){} circle (0.2);
+
+      \draw[thick,color=green] (body2) -- (body31);
+      \draw[thick,color=green] (body2) -- (body32);
+
+      \draw[thick,color=green] (body31) -- (head411);
+      \draw[thick,color=green] (body31) -- (head421);
+
+      \draw[thick,color=green] (body32) -- (head412);
+      \draw[thick,color=green] (body32) -- (head422);
+
+      \pause % frame 7
+      \node[fit=(head411),draw,label=above:0]{};
+      \node[fit=(head421),draw,label=above:0]{};
+
+      \node[fit=(head412),draw,label=above:0]{};
+      \node[fit=(head422),draw,label=above:0]{};
+
+      \node[fit=(body31),draw,label=above:$2$]{};
+      \node[fit=(body32),draw,label=above:$2$]{};
+
+      \pause % frame 8
+      \visible<8>{\node[fit=(body2),draw,label=left:$\omega^{\textcolor{red}{2}}\cdot\textcolor{green}{3} + 1$]{};}
+      \visible<8>{\node[fit=(body1),draw,label=below:$\omega^{\omega^{\textcolor{red}{2}}\cdot\textcolor{green}{3} + 1} + 1$]{};}
 
     \end{tikzpicture}
   \end{figure}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Growing heads is still simpler}
+    \Huge
+    \[3 < \omega\]
+
+    \pause \[\omega^2 \cdot 3 < \omega^2 \cdot \omega = \omega^3\]
+
+    \pause \[\omega^{\omega^2 \cdot 3 + 1} + 1 < \omega^{\omega^3 + 1} + 1\]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Growing heads is still simpler}
+    \Huge
+    \[n < \omega \]
+
+    \[\omega^2 \cdot n < \omega^2 \cdot \omega = \omega^3\]
+
+    \[\omega^{\omega^2 \cdot n + 1} + 1 < \omega^{\omega^3 + 1} + 1\]
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ordinals are well-ordered}
+  \Huge
+  \only<1>{\[\omega + 5\]}
+  \only<2>{\[\omega + 4\]}
+  \only<3>{\[\omega + 1\]}
+  \only<4>{\[\omega\]}
+  \only<5>{\[ 2147483647 \]}
+  \only<6>{\[2147483646\]}
+  \only<7>{\[ \ldots \]}
+  \only<8>{\[1\]}
+  \only<9>{\[0\]}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ordinals are well-ordered}
+  \Huge
+  \only<1>{\[\omega^2 + 5\]}
+  \only<2>{\[\omega^2\]}
+  \only<3>{\[\omega\cdot 1279  + 2203\]}
+  \only<4>{\[\omega\cdot 1279 \]}
+  \only<5>{\[\omega\cdot 1278 \]}
+  \only<6>{\[\omega\cdot 2\]}
+  \only<7>{\[\omega\]}
+  \only<8>{\[21701\]}
+  \only<9>{\[1\]}
+  \only<10>{\[0\]}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ordinals are well-ordered}
+  \Huge \emph{There are no infinite decreasing sequences of ordinals.}
+
+  \pause We say they are \emph{well-ordered}.
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Hydra always dies}
+  \Large
+  \begin{enumerate}
+  \item The Hydra ordinal diminishes each time
+  \pause
+  \item There are no infinite decreasing sequences of ordinals
+  \pause
+  \item Therefore the Hydra ordinal cannot diminish forever
+  \pause
+  \item Therefore the Hydra dies.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Peano's arithmetic and incompleteness}
+  \Huge
+  Can't we just prove it with (finite) numbers? \\
+  \pause Actually, no. \\
+  \pause We can even prove \textcolor{red}{\emph{finite numbers cannot prove that all strategies kill the Hydra}}.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Gödel's incompleteness theorem}
+  \Huge Consider a theory that can express arithmetic. \\
+  \pause If everything it proves is \textcolor{blue}{\emph{true}}, then there are statements which are \textcolor{blue}{\emph{true}} but not \textcolor{red}{\emph{provable}}.
+\end{frame}
 
 \end{document}
