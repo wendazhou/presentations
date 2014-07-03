@@ -18,6 +18,10 @@
 \section{Ordinals}
 
 \begin{frame}
+  \Huge Ordinal numbers
+\end{frame}
+
+\begin{frame}
   \frametitle{Natural numbers}
   \begin{itemize}
   \item<1-> $1$
@@ -367,7 +371,7 @@
       % draw the omega+1 line
       \draw[thick, ->] (-1.5, 0) -- (5.5, 0);
 
-      \draw[thick,color=red] (5, -0.1) -- (5, 0.1);
+      \draw[ultra thick,color=red] (5, -0.1) -- (5, 0.1);
 
       \foreach \x in {1,...,20}
         \draw[thick] ({4.5 - 5 / sqrt(\x)}, -0.1) -- ({4.5 - 5 / sqrt(\x)}, 0.1);
@@ -400,5 +404,85 @@
 \end{frame}
 
 \section{The Hydra game}
+\begin{frame}
+  \Huge The (Kirby-Paris) Hydra game
+\end{frame}
+
+\begin{frame}
+  \frametitle{A Hydra}
+  \Huge Hydra \\
+  \huge a many-headed serpent or monster in Greek mythology that was slain by Hercules and each head of which when cut off was replaced by two others. (Merriam-Webster)
+\end{frame}
+
+\begin{frame}
+  \frametitle{A Hydra}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[
+      body/.style={fill=black},
+      head/.style={fill=white}]
+      \draw[body] (0,0) node(body1){} circle (0.2);
+
+      \draw[body] (-0.75, 1) node(body2){} circle (0.2);
+      \draw[head] (0.75, 1) node(head2){} circle (0.2);
+
+      \draw[body] (-1.5, 2) node(body3){} circle (0.2);
+      \draw[head] (0, 2) node(head3){} circle (0.2);
+
+      \draw[head] (-2.3, 3) node(head41){} circle (0.2);
+      \draw[head] (-1.5, 3) node(head42){} circle (0.2);
+      \draw[head] (-0.7, 3) node(head43){} circle (0.2);
+
+      \draw[thick] (body1) -- (body2);
+      \draw[thick] (body1) -- (head2);
+
+      \draw[thick] (body2) -- (body3);
+      \draw[thick] (body2) -- (head3);
+
+      \draw[thick] (body3) -- (head41);
+      \draw[thick] (body3) -- (head42);
+      \draw[thick] (body3) -- (head43);
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cutting heads off}
+  \begin{figure}
+    \centering
+        \begin{tikzpicture}[
+      body/.style={fill=black},
+      head/.style={fill=white}]
+      \draw[body] (0,0) node(body1){} circle (0.2);
+
+      \draw[body] (-0.75, 1) node(body2){} circle (0.2);
+      \visible<-2>{\draw[head] (0.75, 1) node(head2){} circle (0.2);}
+
+      \draw[body] (-1.5, 2) node(body3){} circle (0.2);
+      \draw[head] (0, 2) node(head3){} circle (0.2);
+
+      \draw[head] (-2.3, 3) node(head41){} circle (0.2);
+      \draw[head] (-1.5, 3) node(head42){} circle (0.2);
+      \draw[head] (-0.7, 3) node(head43){} circle (0.2);
+
+      \draw[thick] (body1) -- (body2);
+      \visible<1>{\draw[thick] (body1) -- (head2);}
+
+      \draw[thick] (body2) -- (body3);
+      \draw[thick] (body2) -- (head3);
+
+      \draw[thick] (body3) -- (head41);
+      \draw[thick] (body3) -- (head42);
+      \draw[thick] (body3) -- (head43);
+
+      \pause
+      \visible<2>{\draw[thick,color=red] (body1) -- (head2);}
+
+      \pause
+
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
 
 \end{document}
